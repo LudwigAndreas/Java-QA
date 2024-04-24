@@ -1,5 +1,6 @@
-package org.example.appmanager;
+package org.example.helper;
 
+import org.example.ApplicationManager;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {

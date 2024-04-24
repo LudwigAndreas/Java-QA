@@ -6,9 +6,43 @@ public class AccountData {
 
     public String password;
 
-    public AccountData(String username, String password) {
+    public String firstName;
+
+    public String lastName;
+
+    public AccountData() {
+
+    }
+
+    public AccountData(String username, String password, String firstName, String lastName) {
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public String getFullNameReversed() {
+        return lastName + " " + firstName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {

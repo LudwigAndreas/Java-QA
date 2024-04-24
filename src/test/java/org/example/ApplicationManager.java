@@ -1,6 +1,9 @@
-package org.example.appmanager;
+package org.example;
 
-import org.junit.After;
+import org.example.helper.IssueHelper;
+import org.example.helper.LoginHelper;
+import org.example.helper.NavigationHelper;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,20 +13,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApplicationManager implements AutoCloseable {
+public class ApplicationManager {
 
-    WebDriver driver;
+    private static WebDriver driver;
     private Map<String, Object> vars;
-    JavascriptExecutor js;
+    private JavascriptExecutor js;
 
-    private NavigationHelper navigationHelper;
+    private final NavigationHelper navigationHelper;
 
     public WebDriver getDriver() {
         return driver;
     }
 
-    private GroupHelper groupHelper;
-    private LoginHelper loginHelper;
+    private final IssueHelper issueHelper;
+    private final LoginHelper loginHelper;
 
     private static ApplicationManager instance;
 
@@ -31,7 +34,7 @@ public class ApplicationManager implements AutoCloseable {
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
-        groupHelper = new GroupHelper(this);
+        issueHelper = new IssueHelper(this);
         loginHelper = new LoginHelper(this);
         navigationHelper = new NavigationHelper(this);
     }
@@ -54,29 +57,26 @@ public class ApplicationManager implements AutoCloseable {
 
     }
 
-    @After
-    public void tearDown() {
-
+    @AfterClass
+    public static void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
-
-    public GroupHelper groupNew() {
-        return groupHelper;
+    public IssueHelper issueHelper() {
+        return issueHelper;
     }
 
-    public NavigationHelper Navigate() {
+    public NavigationHelper navigationHelper() {
         return navigationHelper;
     }
 
     public LoginHelper toLogin() {
         return loginHelper;
     }
-    public void SetWindowSize() {
+    public void setWindowSize() {
         driver.manage().window().setSize(new Dimension(1920, 973));
     }
 
-    @Override
-    public void close() throws Exception {
-        driver.quit();
-    }
 }
