@@ -2,6 +2,16 @@ package org.example.model;
 
 public class IssueData {
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    private Integer id;
+
     private String issueSubject;
 
     private String issueDescription;
@@ -12,6 +22,9 @@ public class IssueData {
         this.issueSubject = issueSubject;
         this.issueDescription = issueDescription;
         this.issueDueDate = issueDueDate;
+    }
+
+    public IssueData() {
     }
 
     public String getIssueSubject() {
