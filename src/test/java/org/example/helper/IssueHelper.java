@@ -6,6 +6,8 @@ import org.example.model.IssueData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -18,13 +20,13 @@ public class IssueHelper extends HelperBase {
     public void createNewIssue(IssueData issueData) {
         driver.findElement(By.id("issue_subject")).sendKeys(issueData.getIssueSubject());
         driver.findElement(By.id("issue_description")).sendKeys(issueData.getIssueDescription());
-        driver.findElement(By.id("issue_due_date")).sendKeys(issueData.getIssueDueDate());
+        driver.findElement(By.id("issue_due_date")).sendKeys(issueData.getIssueDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         driver.findElement(By.name("commit")).click();
         driver.findElement(By.cssSelector("html")).click();
     }
 
     public void editIssue(IssueData issueData) {
-        driver.findElement(By.xpath("(//a[contains(@href, '/issues/13694/edit')])[2]")).click();
+        driver.findElement(By.linkText("Edit")).click();
 
         driver.findElement(By.id("issue_subject")).clear();
         driver.findElement(By.id("issue_subject")).sendKeys(issueData.getIssueSubject());
@@ -32,7 +34,7 @@ public class IssueHelper extends HelperBase {
         driver.findElement(By.id("issue_description")).clear();
         driver.findElement(By.id("issue_description")).sendKeys(issueData.getIssueDescription());
         driver.findElement(By.id("issue_due_date")).clear();
-        driver.findElement(By.id("issue_due_date")).sendKeys(issueData.getIssueDueDate());
+        driver.findElement(By.id("issue_due_date")).sendKeys(issueData.getIssueDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         driver.findElement(By.cssSelector("input:nth-child(7)")).click();
     }
 
@@ -64,8 +66,14 @@ public class IssueHelper extends HelperBase {
             driver.findElement(By.className("wiki")).getText()
         );
         issueData.setIssueDueDate(
-                driver.findElement(By.className("due-date")).getText().split("\n")[1]
+                LocalDate.parse(driver.findElement(By.className("due-date")).getText().split("\n")[1], DateTimeFormatter.ofPattern("MM/dd/yyyy"))
         );
         return issueData;
+    }
+
+    public boolean isIssueEditable(AccountData user) {
+        return driver.findElement(By.cssSelector(".author > .user")).getText().equals(
+                user.getFullNameReversed()
+        );
     }
 }

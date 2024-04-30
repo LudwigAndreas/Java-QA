@@ -4,6 +4,8 @@ import org.example.model.IssueData;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 public class EditIssueTest extends TestBase {
 
     @Test
@@ -11,14 +13,17 @@ public class EditIssueTest extends TestBase {
         if (!manager.toLogin().isLogged(authBase.getAccountData())) {
             manager.toLogin().login(authBase.getAccountData());
         }
-        Integer lastId = manager.navigationHelper().wayToLastCreatedIssue();
+
         IssueData issueData = new IssueData("Selenium created issue 1",
                  "Selenium created description 1",
-                 "01/01/2025");
+                LocalDate.parse("2025-01-01"));
 
-        manager.navigationHelper().wayToIssue(lastId);
+        manager.navigationHelper().wayToIssueList();
+        manager.navigationHelper().wayToNewIssue();
+        manager.issueHelper().createNewIssue(issueData);
 
-         manager.issueHelper().editIssue(issueData);
+        Integer lastId = manager.navigationHelper().wayToLastCreatedIssue();
+        manager.issueHelper().editIssue(issueData);
 
          IssueData savedIssueData = manager.issueHelper().getCreatedIssueData(lastId);
          Assert.assertEquals(issueData.getIssueSubject(), savedIssueData.getIssueSubject());

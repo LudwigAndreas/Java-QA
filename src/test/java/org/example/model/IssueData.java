@@ -1,5 +1,9 @@
 package org.example.model;
 
+import net.bytebuddy.asm.Advice;
+
+import java.time.LocalDate;
+
 public class IssueData {
 
     public Integer getId() {
@@ -16,9 +20,9 @@ public class IssueData {
 
     private String issueDescription;
 
-    private String issueDueDate;
+    private LocalDate issueDueDate;
 
-    public IssueData(String issueSubject, String issueDescription, String issueDueDate) {
+    public IssueData(String issueSubject, String issueDescription, LocalDate issueDueDate) {
         this.issueSubject = issueSubject;
         this.issueDescription = issueDescription;
         this.issueDueDate = issueDueDate;
@@ -43,11 +47,11 @@ public class IssueData {
         this.issueDescription = issueDescription;
     }
 
-    public String getIssueDueDate() {
+    public LocalDate getIssueDueDate() {
         return issueDueDate;
     }
 
-    public void setIssueDueDate(String issueDueDate) {
+    public void setIssueDueDate(LocalDate issueDueDate) {
         this.issueDueDate = issueDueDate;
     }
 }

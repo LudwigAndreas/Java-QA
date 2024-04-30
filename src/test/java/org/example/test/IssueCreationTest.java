@@ -4,6 +4,8 @@ import org.example.model.IssueData;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 public class IssueCreationTest extends TestBase {
 
     @Test
@@ -14,7 +16,7 @@ public class IssueCreationTest extends TestBase {
         manager.navigationHelper().openHomePage();
         IssueData issueData = new IssueData("Selenium created issue 1",
                 "Selenium created description 1",
-                "01/01/2025");
+                LocalDate.parse("2025-01-01"));
 
 //        Navigate to the issue list page
         manager.navigationHelper().wayToIssueList();
