@@ -18,9 +18,12 @@ public class IssueHelper extends HelperBase {
     }
 
     public void createNewIssue(IssueData issueData) {
-        driver.findElement(By.id("issue_subject")).sendKeys(issueData.getIssueSubject());
-        driver.findElement(By.id("issue_description")).sendKeys(issueData.getIssueDescription());
-        driver.findElement(By.id("issue_due_date")).sendKeys(issueData.getIssueDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        if (issueData.getIssueSubject() != null)
+            driver.findElement(By.id("issue_subject")).sendKeys(issueData.getIssueSubject());
+        if (issueData.getIssueDescription() != null)
+            driver.findElement(By.id("issue_description")).sendKeys(issueData.getIssueDescription());
+        if (issueData.getIssueDueDate() != null)
+            driver.findElement(By.id("issue_due_date")).sendKeys(issueData.getIssueDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         driver.findElement(By.name("commit")).click();
         driver.findElement(By.cssSelector("html")).click();
     }
@@ -65,9 +68,10 @@ public class IssueHelper extends HelperBase {
         issueData.setIssueDescription(
             driver.findElement(By.className("wiki")).getText()
         );
-        issueData.setIssueDueDate(
-                LocalDate.parse(driver.findElement(By.className("due-date")).getText().split("\n")[1], DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-        );
+        if (!driver.findElement(By.className("due-date")).getText().isEmpty() && driver.findElement(By.className("due-date")).getText().contains("\n"))
+            issueData.setIssueDueDate(
+                    LocalDate.parse(driver.findElement(By.className("due-date")).getText().split("\n")[1], DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+            );
         return issueData;
     }
 
