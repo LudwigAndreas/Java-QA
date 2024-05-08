@@ -57,7 +57,6 @@ public class ApplicationManager {
 
     }
 
-    @AfterClass
     public static void tearDown() {
         if (driver != null) {
             driver.quit();

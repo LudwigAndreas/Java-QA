@@ -13,9 +13,6 @@ import org.junit.runners.Suite;
 })
 public class OneBrowserSuiteTest extends TestBase {
 
-    ApplicationManager manager = ApplicationManager.GetInstance();
-
-
     @AfterClass
     public static void tearDown() {
         ApplicationManager.tearDown();
