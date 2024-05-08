@@ -18,9 +18,9 @@ public class TestBase {
         manager.setWindowSize();
     }
 
-    @AfterClass
+//    @AfterClass
     public static void tearDown() {
-        ApplicationManager.tearDown();
+//        ApplicationManager.tearDown();
     }
 
 }
