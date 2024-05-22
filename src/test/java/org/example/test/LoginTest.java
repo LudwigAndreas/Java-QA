@@ -15,8 +15,8 @@ public class LoginTest extends TestBase {
         AccountData user = new AccountData(
                 Settings.getLogin(),
                 Settings.getPassword(),
-                "Ludwig",
-                "Andreas");
+                Settings.getFirstName(),
+                Settings.getLastName());
         manager.toLogin().login(user);
 
         Assertions.assertTrue(manager.toLogin().isLoggedIn(user.getUsername()));
@@ -29,8 +29,8 @@ public class LoginTest extends TestBase {
         AccountData user = new AccountData(
                 Settings.getLogin() + "1",
                 Settings.getPassword(),
-                "Ludwig",
-                "Andreas");
+                Settings.getFirstName(),
+                Settings.getLastName());
         manager.toLogin().login(user);
 
         Assertions.assertFalse(manager.toLogin().isLoggedIn(user.getUsername()));
