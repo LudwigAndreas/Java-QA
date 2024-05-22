@@ -19,11 +19,23 @@ public class LoginHelper extends HelperBase {
         driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
     }
 
-    public boolean isLogged(AccountData user) {
+    public boolean isLoggedIn() {
         try {
-            return driver.findElement(By.linkText(user.getUsername())).isDisplayed();
+            return driver.findElement(By.linkText("Sign out")).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    public boolean isLoggedIn(String username) {
+        try {
+            return driver.findElement(By.linkText(username)).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public void logout() {
+        driver.findElement(By.linkText("Sign out")).click();
     }
 }

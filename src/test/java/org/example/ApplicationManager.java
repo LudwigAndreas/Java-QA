@@ -3,8 +3,6 @@ package org.example;
 import org.example.helper.IssueHelper;
 import org.example.helper.LoginHelper;
 import org.example.helper.NavigationHelper;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -50,11 +48,6 @@ public class ApplicationManager {
             }
         }
         return localInstance;
-    }
-
-    @Before
-    public void setUp() {
-
     }
 
     public static void tearDown() {

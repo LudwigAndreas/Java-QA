@@ -1,21 +1,38 @@
 package org.example.test;
 
 import org.example.model.AccountData;
-import org.junit.Assert;
-import org.junit.Test;
+import org.example.settings.Settings;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 
 public class LoginTest extends TestBase {
+
     @Test
-    public void loginTest() {
+    public void loginWithValidDataTest() {
         manager.navigationHelper().openUrl();
         manager.setWindowSize();
         AccountData user = new AccountData(
-                "LudwigAndreas",
-                "xnG^xWkX4aV",
+                Settings.getLogin(),
+                Settings.getPassword(),
                 "Ludwig",
                 "Andreas");
         manager.toLogin().login(user);
 
-        Assert.assertTrue(manager.toLogin().isLogged(user));
+        Assertions.assertTrue(manager.toLogin().isLoggedIn(user.getUsername()));
+    }
+
+    @Test
+    public void loginWithInvalidDataTest() {
+        manager.navigationHelper().openUrl();
+        manager.setWindowSize();
+        AccountData user = new AccountData(
+                Settings.getLogin() + "1",
+                Settings.getPassword(),
+                "Ludwig",
+                "Andreas");
+        manager.toLogin().login(user);
+
+        Assertions.assertFalse(manager.toLogin().isLoggedIn(user.getUsername()));
     }
 }

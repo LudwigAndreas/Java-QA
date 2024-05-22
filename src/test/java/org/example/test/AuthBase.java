@@ -1,23 +1,35 @@
 package org.example.test;
 
+import org.example.ApplicationManager;
 import org.example.model.AccountData;
+import org.example.settings.Settings;
 
-public class AuthBase {
 
-    protected final AccountData accountData = new AccountData();
+public class AuthBase extends TestBase {
+
+    protected static final AccountData accountData = new AccountData();
 
     public AuthBase() {
-        accountData.setUsername("LudwigAndreas");
-        accountData.setPassword("xnG^xWkX4aV");
+        super();
+        accountData.setUsername(Settings.getLogin());
+        accountData.setPassword(Settings.getPassword());
         accountData.setFirstName("Ludwig");
         accountData.setLastName("Andreas");
     }
 
-    public AuthBase(AccountData accountData) {
-        this.accountData.setUsername(accountData.getUsername());
-        this.accountData.setPassword(accountData.getPassword());
-        this.accountData.setFirstName(accountData.getFirstName());
-        this.accountData.setLastName(accountData.getLastName());
+    public void setUp() {
+//        TestBase.setUpManager();
+        if (manager.toLogin().isLoggedIn()) {
+            if (manager.toLogin().isLoggedIn(accountData.getUsername())) {
+                return;
+            }
+            manager.toLogin().logout();
+        }
+        manager.toLogin().login(accountData);
+    }
+    public static void tearDown() {
+        manager.toLogin().logout();
+        TestBase.tearDownManager();
     }
 
     public AccountData getAccountData() {

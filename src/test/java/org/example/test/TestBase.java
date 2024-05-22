@@ -1,26 +1,22 @@
 package org.example.test;
 
 import org.example.ApplicationManager;
-import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 public class TestBase {
 
-    protected ApplicationManager manager = ApplicationManager.GetInstance();
-
-    protected AuthBase authBase = new AuthBase();
-
-    @Before
-    public void setUp() {
-        manager.setUp();
-
+    protected static ApplicationManager manager = ApplicationManager.GetInstance();
+    @BeforeAll
+    public static void setUpManager() {
         manager.navigationHelper().openUrl();
         manager.setWindowSize();
+        manager.navigationHelper().openHomePage();
     }
 
-//    @AfterClass
-    public static void tearDown() {
-//        ApplicationManager.tearDown();
+    @AfterAll
+    public static void tearDownManager() {
+        ApplicationManager.tearDown();
     }
 
 }

@@ -1,6 +1,7 @@
 package org.example.helper;
 
 import org.example.ApplicationManager;
+import org.example.settings.Settings;
 import org.openqa.selenium.By;
 
 public class NavigationHelper extends HelperBase {
@@ -40,7 +41,7 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void openUrl() {
-        driver.get("http://redmine.testbase.ru/");
+        driver.get(Settings.getBaseUrl());
     }
 
 }

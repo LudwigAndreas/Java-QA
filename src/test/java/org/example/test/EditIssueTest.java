@@ -1,18 +1,22 @@
 package org.example.test;
 
 import org.example.model.IssueData;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import java.time.LocalDate;
 
-public class EditIssueTest extends TestBase {
+public class EditIssueTest extends AuthBase {
+
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+    }
 
     @Test
     public void editIssueTest() {
-        if (!manager.toLogin().isLogged(authBase.getAccountData())) {
-            manager.toLogin().login(authBase.getAccountData());
-        }
 
         IssueData issueData = new IssueData("Selenium created issue 1",
                  "Selenium created description 1",
@@ -26,9 +30,9 @@ public class EditIssueTest extends TestBase {
         manager.issueHelper().editIssue(issueData);
 
          IssueData savedIssueData = manager.issueHelper().getCreatedIssueData(lastId);
-         Assert.assertEquals(issueData.getIssueSubject(), savedIssueData.getIssueSubject());
-         Assert.assertEquals(issueData.getIssueDescription(), savedIssueData.getIssueDescription());
-         Assert.assertEquals(issueData.getIssueDueDate(), savedIssueData.getIssueDueDate());
+         Assertions.assertEquals(issueData.getIssueSubject(), savedIssueData.getIssueSubject());
+         Assertions.assertEquals(issueData.getIssueDescription(), savedIssueData.getIssueDescription());
+         Assertions.assertEquals(issueData.getIssueDueDate(), savedIssueData.getIssueDueDate());
 
     }
 }

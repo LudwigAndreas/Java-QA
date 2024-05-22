@@ -1,0 +1,7 @@
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>This is a comment</comment>
+    <entry key="baseUrl">http://redmine.testbase.ru/</entry>
+    <entry key="login">LudwigAndreas</entry>
+    <entry key="password">xnG^xWkX4aV</entry>
+</properties>
